@@ -5,28 +5,28 @@ const jwt = require('jsonwebtoken');
 
 async function authUser(req, res, next) {
 
-    const { token } = req.cookies;
+	const { token } = req.cookies;
 
-    if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
-    }
+	if (!token) {
+		return res.status(401).json({ message: 'Unauthorized' });
+	}
 
-    try {
+	try {
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+		const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-        const user = await userModel.findById(decoded.id)
+		const user = await userModel.findById(decoded.id)
 
-        req.user = user;
+		req.user = user;
 
-        next()
+		next()
 
-    } catch (err) {
-        res.status(401).json({ message: 'Unauthorized' });
-    }
+	} catch (err) {
+		res.status(401).json({ message: 'Unauthorized' });
+	}
 
 }
 
 module.exports = {
-    authUser
+	authUser
 }

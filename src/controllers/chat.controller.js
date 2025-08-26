@@ -4,23 +4,23 @@ const messageModel = require('../models/message.model');
 
 async function createChat(req, res) {
 
-    const { title } = req.body;
-    const user = req.user;
+	const { title } = req.body;
+	const user = req.user;
 
-    const chat = await chatModel.create({
-        user: user._id,
-        title
-    });
+	const chat = await chatModel.create({
+		user: user._id,
+		title
+	});
 
-    res.status(201).json({
-        message: "Chat created successfully",
-        chat: {
-            _id: chat._id,
-            title: chat.title,
-            lastActivity: chat.lastActivity,
-            user: chat.user
-        }
-    });
+	res.status(201).json({
+		message: "Chat created successfully",
+		chat: {
+			_id: chat._id,
+			title: chat.title,
+			lastActivity: chat.lastActivity,
+			user: chat.user
+		}
+	});
 
 }
 
@@ -54,7 +54,7 @@ async function createChat(req, res) {
 // }
 
 module.exports = {
-    createChat
-    // getChats,
-    // getMessages
+	createChat
+	// getChats,
+	// getMessages
 };
