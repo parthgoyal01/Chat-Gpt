@@ -18,3 +18,5 @@ router.get('/messages/:id', authMiddleware.authUser, chatController.getMessages)
 
 
 module.exports = router;   
+// DELETE /api/chat/:id
+router.delete('/:id', authMiddleware.authUser, chatController.deleteChat);

@@ -57,4 +57,22 @@ module.exports = {
 	createChat,
 	getChats,
 	getMessages
+,
+	// Delete a chat and its messages
+	async deleteChat(req, res) {
+		try {
+			const chatId = req.params.id;
+			const userId = req.user._id;
+			// Find and delete chat owned by user
+			const chat = await chatModel.findOneAndDelete({ _id: chatId, user: userId });
+			if (!chat) {
+				return res.status(404).json({ message: 'Chat not found or not authorized.' });
+			}
+			// Delete all messages for this chat
+			await messageModel.deleteMany({ chat: chatId });
+			res.status(200).json({ message: 'Chat deleted successfully.' });
+		} catch (err) {
+			res.status(500).json({ message: 'Failed to delete chat.' });
+		}
+	}
 };
